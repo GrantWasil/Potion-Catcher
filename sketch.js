@@ -5,7 +5,7 @@ var missNoise;
 var oopsNoise;
 var gameoverNoise;
 var score = 0;
-var timer = 60;
+var timer = 2;
 var frame = 0;
 var gameState = "playing";
 
@@ -42,15 +42,24 @@ function draw() {
         } else {
           gameState = 'end';
           gameoverNoise.play();
+          restart();
         }
       }
-      if (random(80 - score * 1.2) < 1) {
+      if (random(40 - score * .5) < 1) {
         createPotion(random(30, width - 30), -20);
       }
       break;
     case "end":
       textSize(100);
       text('GAMEOVER', width/2, height/2);
+      textSize(60);
+      text('Click to Restart', width/2, height/2 + 120);
+      if (mouseIsPressed) {
+        timer=61;
+        score=0;
+        gameState='playing'
+        oopsNoise.play();
+      }
       gameSound.stop();
   }
   textSize(30);
@@ -67,7 +76,7 @@ function createPotion(x, y) {
   var potion = createSprite(x, y);
   potion.addImage(potionImages[floor(random(0, 9))]);
   potion.scale = 0.05;
-  potion.velocity.y = random(1 + score * 0.2, 1.5 + score * 0.2);
+  potion.velocity.y = random(1 + score * 0.05, 1.5 + score * 0.2);
   potion.onMousePressed = potionHit;
 }
 
@@ -77,4 +86,8 @@ function potionHit(potion) {
     catchSound.play();
     score++;
   }
+}
+
+function restart() {
+  
 }
