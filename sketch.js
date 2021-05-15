@@ -5,7 +5,7 @@ var missNoise;
 var oopsNoise;
 var gameoverNoise;
 var score = 0;
-var timer = 2;
+var timer = 60;
 var frame = 0;
 var gameState = "playing";
 
